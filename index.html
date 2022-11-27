@@ -161,7 +161,7 @@
 
                 // temp
                 selectData(pathTemp, timeNow, (value) => {
-                    value.now = timeNow + ':' + today.getSeconds();
+                    value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai} giây`;
                     insertData(pathTemp, value);
                     if (phutQuaKhu !== phutHienTai) {
                         value[timeNow] = value.now;
