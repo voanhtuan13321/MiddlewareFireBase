@@ -143,6 +143,22 @@
                             </tbody>
                         </table>
                     </div>
+
+                    <!-- table Water -->
+                    <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">  
+                        <table class="table bg-light rounded">
+                            <thead class="bg-dark">
+                                <tr><th class="text-center rounded text-white" scope="col" colspan="2">Water</th></tr>
+                            </thead>
+                            <tbody id="content-Water">
+                                <tr>
+                                    <td>Key</td>
+                                    <td>Value</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
                 </div>
             </div>
         </div>
@@ -189,13 +205,14 @@
 
             // create url to connect to Firebase
             const paths = {
-                temp:'temp',
-                hum:'hum',
-                ssCO2:'ssCO2',
-                dustDensity:'dustDensity',
-                votage:'Votage',
-                current:'Current',
-                power:'Power',
+                temp: 'temp',
+                hum: 'hum',
+                ssCO2: 'ssCO2',
+                dustDensity: 'dustDensity',
+                votage: 'Votage',
+                current: 'Current',
+                power: 'Power',
+                water: 'Water',
             };
             
             // select cac element chua content
@@ -208,6 +225,7 @@
                 votage: $('#content-Votage'),
                 current: $('#content-Current'),
                 power: $('#content-Power'),
+                water: $('#content-Water'),
             }
 
             // inser data to firebase
@@ -293,85 +311,114 @@
                 selectData(paths.temp, timeNow, (value) => {
                     // gan tam gia tri cho key now
                     // doi khi nap co du lieu ben cam bien thi comment lai
-                    value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
+                    // value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
 
-                    // cap nhat gia thi theo phutHienTai tu gia tri cua key now
-                    value[timeNow] = value.now;
-                    insertData(paths.temp, value);
-                    renderTable(elements.temp, value);
+                    if ('now' in value) {
+                        // cap nhat gia thi theo phutHienTai tu gia tri cua key now
+                        value[timeNow] = value.now;
+                        insertData(paths.temp, value);
+                        renderTable(elements.temp, value);
+                    }
                 });
 
                 // xu ly cho hum
                 selectData(paths.hum, timeNow, (value) => {
                     // gan tam gia tri cho key now
                     // doi khi nap co du lieu ben cam bien thi comment lai
-                    value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
+                    // value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
 
-                    // cap nhat gia thi theo phutHienTai tu gia tri cua key now
-                    value[timeNow] = value.now;
-                    insertData(paths.hum, value);
-                    renderTable(elements.hum, value);
+                    if ('now' in value) {
+                        // cap nhat gia thi theo phutHienTai tu gia tri cua key now
+                        value[timeNow] = value.now;
+                        insertData(paths.hum, value);
+                        renderTable(elements.hum, value);
+                    }
                 });
 
                 // xu ly cho ssCO2
                 selectData(paths.ssCO2, timeNow, (value) => {
                     // gan tam gia tri cho key now
                     // doi khi nap co du lieu ben cam bien thi comment lai
-                    value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
+                    // value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
 
-                    // cap nhat gia thi theo phutHienTai tu gia tri cua key now
-                    value[timeNow] = value.now;
-                    insertData(paths.ssCO2, value);
-                    renderTable(elements.ssCO2, value);
+                    if ('now' in value) {
+                        // cap nhat gia thi theo phutHienTai tu gia tri cua key now
+                        value[timeNow] = value.now;
+                        insertData(paths.ssCO2, value);
+                        renderTable(elements.ssCO2, value);
+                    }
                 });
 
                 // xu ly cho dustDensity
                 selectData(paths.dustDensity, timeNow, (value) => {
                     // gan tam gia tri cho key now
                     // doi khi nap co du lieu ben cam bien thi comment lai
-                    value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
+                    // value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
 
-                    // cap nhat gia thi theo phutHienTai tu gia tri cua key now
-                    value[timeNow] = value.now;
-                    insertData(paths.dustDensity, value);
-                    renderTable(elements.dustDensity, value);
+                    if ('now' in value) {
+                        // cap nhat gia thi theo phutHienTai tu gia tri cua key now
+                        value[timeNow] = value.now;
+                        insertData(paths.dustDensity, value);
+                        renderTable(elements.dustDensity, value);
+                    }
                 });
 
                 // xu ly cho xu ly cho Votage
                 selectData(paths.votage, timeNow, (value) => {
                     // gan tam gia tri cho key now
                     // doi khi nap co du lieu ben cam bien thi comment lai
-                    value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
+                    // value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
 
-                    // cap nhat gia thi theo phutHienTai tu gia tri cua key now
-                    value[timeNow] = value.now;
-                    insertData(paths.votage, value);
-                    renderTable(elements.votage, value);
+                    if ('now' in value) {
+                        // cap nhat gia thi theo phutHienTai tu gia tri cua key now
+                        value[timeNow] = value.now;
+                        insertData(paths.votage, value);
+                        renderTable(elements.votage, value);
+                    }
                 });
 
                 // xu ly cho xu ly cho current
                 selectData(paths.current, timeNow, (value) => {
                     // gan tam gia tri cho key now
                     // doi khi nap co du lieu ben cam bien thi comment lai
-                    value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
+                    // value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
 
-                    // cap nhat gia thi theo phutHienTai tu gia tri cua key now
-                    value[timeNow] = value.now;
-                    insertData(paths.current, value);
-                    renderTable(elements.current, value);
+                    if ('now' in value) {
+                        // cap nhat gia thi theo phutHienTai tu gia tri cua key now
+                        value[timeNow] = value.now;
+                        insertData(paths.current, value);
+                        renderTable(elements.current, value);
+                    }
                 });
 
                 // xu ly cho xu ly cho power
                 selectData(paths.power, timeNow, (value) => {
                     // gan tam gia tri cho key now
                     // doi khi nap co du lieu ben cam bien thi comment lai
-                    value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
+                    // value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
 
-                    // cap nhat gia thi theo phutHienTai tu gia tri cua key now
-                    value[timeNow] = value.now;
-                    insertData(paths.power, value);
-                    renderTable(elements.power, value);
+                    if ('now' in value) {
+                        // cap nhat gia thi theo phutHienTai tu gia tri cua key now
+                        value[timeNow] = value.now;
+                        insertData(paths.power, value);
+                        renderTable(elements.power, value);
+                    }
                 });
+
+                // xu ly cho xu ly cho water
+                selectData(paths.water, timeNow, (value) => {
+                    // gan tam gia tri cho key now
+                    // doi khi nap co du lieu ben cam bien thi comment lai
+                    // value.now = timeNow + `:${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai}`;
+
+                    if ('now' in value) {
+                        // cap nhat gia thi theo phutHienTai tu gia tri cua key now
+                        value[timeNow] = value.now;
+                        insertData(paths.water, value);
+                        renderTable(elements.water, value);
+                    }
+                });
+
             }, 1000);
         </script>
     </body>
