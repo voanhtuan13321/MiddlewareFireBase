@@ -10,12 +10,35 @@
             href="https://cdn.jsdelivr.net/npm/bootstrap@4.0.0/dist/css/bootstrap.min.css"
             integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm"
             crossorigin="anonymous" />
+        <link rel="stylesheet" href="./css/style.css" />
     </head>
     <body>
         <div class="app">
             <div class="container">
                 <h1 class="text-center text-info mt-5 mb-5">Database realtime</h1>
                 <h4 class="text-center text-secondary" id="show-time">thoi gian</h4>
+            </div>
+            <div class="container mt-5">
+                <div class="row">
+                    
+                    <div class="col-sm-12 col-md-4 col-lg-3 col-xl-2">  
+                        <table class="table bg-light rounded">
+                            <thead class="bg-success">
+                                <tr>
+                                    <th class="text-center rounded text-white" scope="col" colspan="2">Tempt</th>
+                                </tr>
+                            </thead>
+                            <tbody id="content-temp">
+                                <tr>
+                                    <td>Key</td>
+                                    <td>Value</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+
+                </div>
             </div>
         </div>
 
@@ -33,17 +56,10 @@
             crossorigin="anonymous"></script>
         <script type="module">
             // Import the functions you need from the SDKs you need
-            import {initializeApp} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
-            import {getAnalytics} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
-            import {
-                getDatabase,
-                set,
-                get,
-                update,
-                remove,
-                ref,
-                child,
-            } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
+            import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
+            import { getAnalytics } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-analytics.js";
+            import { getDatabase, set, get, update, remove, ref, child }
+                from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 
             // TODO: Add SDKs for Firebase products that you want to use
             // https://firebase.google.com/docs/web/setup#available-libraries
@@ -67,6 +83,16 @@
             const db = getDatabase();
 
             const pathTemp = 'temp';
+            const pathHum = 'hum';
+            const pathSsCO2 = 'ssCO2';
+            const pathDustDensity = 'dustDensity';
+            const pathVotage = 'Votage';
+            const pathCurrent = 'Current';
+            const pathPower = 'Power';
+            
+            const elementShowTime = $('#show-time');
+            const elementContentTemp = $('#content-temp');
+            
             let phutQuaKhu = new Date().getMinutes();
 
             // inser data to firebase
@@ -91,20 +117,34 @@
             };
 
             // delete data to firebase
-            const deleteData = (data) => {
-                remove(ref(db, "people/tuan"))
-                    .then(() => console.log("sussefully"))
-                    .catch((error) => console.error("faild:", error));
-            };
+            // const deleteData = (data) => {
+            //     remove(ref(db, "people/tuan"))
+            //         .then(() => console.log("sussefully"))
+            //         .catch((error) => console.error("faild:", error));
+            // };
 
             // update data to firebase
-            const updateData = () => {
-                update(ref(db, "people/tuan"), {
-                    name: data,
-                })
-                    .then(() => console.log("sussefully"))
-                    .catch((error) => console.error("faild:", error));
-            };
+            // const updateData = () => {
+            //     update(ref(db, "people/tuan"), {
+            //         name: data,
+            //     })
+            //         .then(() => console.log("sussefully"))
+            //         .catch((error) => console.error("faild:", error));
+            // };
+
+            const renderTable = (elementContent, object) => {
+                let keys = Object.keys(object);
+                let htmls = '';
+                for (const key of keys) {
+                    htmls += `
+                        <tr>
+                            <td>${key}</td>
+                            <td>${object[key]}</td>
+                        </tr>
+                    `;
+                }
+                elementContent.html(htmls);
+            }
 
             // loop
             setInterval(() => {
@@ -112,20 +152,23 @@
                 const gioHienTai = today.getHours();
                 const phutHienTai = today.getMinutes();
                 const giayHienTai = today.getSeconds();
-                const timeNow = `${gioHienTai}_${phutHienTai}`;
-                const elementShowTime = $('#show-time');
+                const timeNow = `${gioHienTai < 10 ? '0' + gioHienTai : gioHienTai}:${phutHienTai < 10 ? '0' + phutHienTai : phutHienTai}`;
                 
-                elementShowTime.text(`Thời gian: ${gioHienTai}h ${phutHienTai}p ${giayHienTai}s`);
+                elementShowTime.text(`Thời gian:
+                    ${gioHienTai < 10 ? '0' + gioHienTai : gioHienTai} giờ
+                    ${phutHienTai < 10 ? '0' + phutHienTai : phutHienTai} phút
+                    ${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai} giây`);
 
+                // temp
                 selectData(pathTemp, timeNow, (value) => {
-                    value.now = timeNow + '_' + today.getSeconds();
+                    value.now = timeNow + ':' + today.getSeconds();
                     insertData(pathTemp, value);
                     if (phutQuaKhu !== phutHienTai) {
-                        value[timeNow] = timeNow + '_' + today.getSeconds();;
+                        value[timeNow] = value.now;
                         insertData(pathTemp, value);
                         phutQuaKhu = phutHienTai;
                     }
-                    console.log(phutQuaKhu, phutHienTai);
+                    renderTable(elementContentTemp, value);
                 });
                 
             }, 1000);
