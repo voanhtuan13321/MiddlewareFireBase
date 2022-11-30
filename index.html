@@ -15,19 +15,42 @@
                 background-color: #e3e0bc;
             }
 
-            table {
-                transition: all 0.4s;
+            .table-wrapper {
+                position: relative;
+            }
+            
+            .table-scroll {
+                max-height: 980px;
+                overflow-y: auto;
+            }
+            
+            .table-wrapper table thead th {
+                position: absolute;
+                width: 84.5%;
             }
 
-            table:hover {
-                box-shadow:
-                    rgba(0, 0, 0, 0.25) 0px 54px 55px,
-                    rgba(0, 0, 0, 0.12) 0px -12px 30px,
-                    rgba(0, 0, 0, 0.12) 0px 4px 6px,
-                    rgba(0, 0, 0, 0.17) 0px 12px 13px,
-                    rgba(0, 0, 0, 0.09) 0px -3px 5px;
-                transform: scale(1.01);
-                transition: all 0.4s;
+            .gio {
+                padding-right: 0 !important;
+            }
+
+            .value {
+                padding-left: 0!important;
+            }
+
+            .text-red {
+                color: red;
+            }
+
+            @media only screen and (max-width: 1200px) {
+                .table-wrapper table thead th {
+                    width: 87.5%;
+                }
+            }
+
+            @media only screen and (max-width: 768px) {
+                .table-wrapper table thead th {
+                    width: 89%;
+                }
             }
         </style>
     </head>
@@ -39,132 +62,118 @@
             </div>
             <div class="container mt-5">
                 <div class="row">
+
                     <!-- table tempt -->
-                    <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">  
-                        <table class="table bg-light rounded">
-                            <thead class="bg-success">
-                                <tr><th class="text-center rounded text-white" scope="col" colspan="3">Tempt</th></tr>
-                            </thead>
-                            <tbody id="content-temp">
-                                <tr>
-                                    <td>gio</td>
-                                    <td>phut</td>
-                                    <td>value</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="mb-5 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 table-wrapper">
+                        <div class="table-scroll">
+                            <table class="table bg-light rounded">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center rounded text-white bg-success" scope="col" colspan="3">Tempt</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="content-temp"></tbody>
+                            </table>
+                        </div>
                     </div>
 
+
                     <!-- table hum -->
-                    <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">  
-                        <table class="table bg-light rounded">
-                            <thead class="bg-primary">
-                                <tr><th class="text-center rounded text-white" scope="col" colspan="3">Hum</th></tr>
-                            </thead>
-                            <tbody id="content-hum">
-                                <tr>
-                                    <td>gio</td>
-                                    <td>phut</td>
-                                    <td>value</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="mb-5 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 table-wrapper">
+                        <div class="table-scroll">
+                            <table class="table bg-light rounded">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center rounded text-white bg-primary" scope="col" colspan="3">Hum</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="content-hum"></tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- table ssCO2 -->
-                    <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">  
-                        <table class="table bg-light rounded">
-                            <thead class="bg-secondary">
-                                <tr><th class="text-center rounded text-white" scope="col" colspan="3">ssCO2</th></tr>
-                            </thead>
-                            <tbody id="content-ssCO2">
-                                <tr>
-                                    <td>gio</td>
-                                    <td>phut</td>
-                                    <td>value</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="mb-5 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 table-wrapper">
+                        <div class="table-scroll">
+                            <table class="table bg-light rounded">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center rounded text-white bg-secondary" scope="col" colspan="3">ssCOS</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="content-ssCO2"></tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- table dustDensity -->
-                    <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">  
-                        <table class="table bg-light rounded">
-                            <thead class="bg-danger">
-                                <tr><th class="text-center rounded text-white" scope="col" colspan="3">DustDensity</th></tr>
-                            </thead>
-                            <tbody id="content-dustDensity">
-                                <tr>
-                                    <td>gio</td>
-                                    <td>phut</td>
-                                    <td>value</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="mb-5 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 table-wrapper">
+                        <div class="table-scroll">
+                            <table class="table bg-light rounded">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center rounded text-white bg-danger" scope="col" colspan="3">DustDensity</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="content-dustDensity"></tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- table Votage -->
-                    <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">  
-                        <table class="table bg-light rounded">
-                            <thead class="bg-warning">
-                                <tr><th class="text-center rounded text-white" scope="col" colspan="3">Votage</th></tr>
-                            </thead>
-                            <tbody id="content-Votage">
-                                <tr>
-                                    <td>gio</td>
-                                    <td>phut</td>
-                                    <td>value</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="mb-5 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 table-wrapper">
+                        <div class="table-scroll">
+                            <table class="table bg-light rounded">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center rounded text-white bg-warning" scope="col" colspan="3">Votage</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="content-Votage"></tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- table Current -->
-                    <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">  
-                        <table class="table bg-light rounded">
-                            <thead class="bg-info">
-                                <tr><th class="text-center rounded text-white" scope="col" colspan="3">Current</th></tr>
-                            </thead>
-                            <tbody id="content-Current">
-                                <tr>
-                                    <td>gio</td>
-                                    <td>phut</td>
-                                    <td>value</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="mb-5 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 table-wrapper">
+                        <div class="table-scroll">
+                            <table class="table bg-light rounded">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center rounded text-white bg-info" scope="col" colspan="3">Current</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="content-Current"></tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- table Power -->
-                    <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">  
-                        <table class="table bg-light rounded">
-                            <thead class="bg-dark">
-                                <tr><th class="text-center rounded text-white" scope="col" colspan="3">Power</th></tr>
-                            </thead>
-                            <tbody id="content-Power">
-                                <tr>
-                                    <td>gio</td>
-                                    <td>phut</td>
-                                    <td>value</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="mb-5 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 table-wrapper">
+                        <div class="table-scroll">
+                            <table class="table bg-light rounded">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center rounded text-white bg-dark" scope="col" colspan="3">Power</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="content-Power"></tbody>
+                            </table>
+                        </div>
                     </div>
 
                     <!-- table Water -->
-                    <div class="mb-3 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2">  
-                        <table class="table bg-light rounded">
-                            <thead class="bg-success">
-                                <tr><th class="text-center rounded text-white" scope="col" colspan="3">Water</th></tr>
-                            </thead>
-                            <tbody id="content-Water">
-                                <tr>
-                                    <td>gio</td>
-                                    <td>phut</td>
-                                    <td>value</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    <div class="mb-5 col-6 col-sm-6 col-md-4 col-lg-3 col-xl-2 table-wrapper">
+                        <div class="table-scroll">
+                            <table class="table bg-light rounded">
+                                <thead>
+                                    <tr>
+                                        <th class="text-center rounded text-white bg-success" scope="col" colspan="3">Water</th>
+                                    </tr>
+                                </thead>
+                                <tbody id="content-Water"></tbody>
+                            </table>
+                        </div>
                     </div>
 
                 </div>
@@ -302,19 +311,24 @@
                 listGios.pop();
                 let htmls = `
                     <tr>
-                        <td>Now</td>
+                        <td colspan="3">now</td>
+                    </tr>
+                    <tr class="text-red">
+                        <td class="gio">Now</td>
                         <td colspan="2">${object.now}</td>
                     </tr>
                 `;
 
                 listGios.forEach(gio => {
                     let listPhuts = Object.keys(object[gio]);
+                    let now = new Date();
+                    
                     listPhuts.forEach(phut => {
                         htmls += `
-                            <tr>
+                            <tr ${now.getHours() == gio && now.getMinutes() == phut && 'class="text-red"'}>
                                 <td>${gio}</td>
                                 <td>${phut}</td>
-                                <td>${object[gio][phut]}</td>
+                                <td class="value">${object[gio][phut]}</td>
                             </tr>
                         `;
                     });
@@ -354,6 +368,7 @@
                     ${phutHienTai < 10 ? '0' + phutHienTai : phutHienTai} phút
                     ${giayHienTai < 10 ? '0' + giayHienTai : giayHienTai} giây`);
 
+                
                 // xu ly cho temp
                 selectAndInsertToFirebase(paths.temp, gioHienTai, phutHienTai, elements.temp);
 
