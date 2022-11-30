@@ -273,8 +273,6 @@
             const selectData = (path, gio, phut, callBack) => {
                 const dbref = ref(db);
 
-
-
                 get(child(dbref, path))
                     .then((snapshot) => {
                         if (snapshot.exists()) {
@@ -282,7 +280,7 @@
                             callBack(snapshot.val());
                         } else {
                             const data = {
-                                [phut]: 0
+                                [phut]: '0'
                             };
                             insertData(path + '/' + gio, data);
                         }
