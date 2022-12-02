@@ -147,7 +147,7 @@ const selectAndInsertToFirebase = (paths, gioHienTai, phutHienTai, check, elemen
     selectData(paths, gioHienTai, (value) => {
         // gan tam thoi gia tri cho now
         // doi khi nap co du lieu ben cam bien thi comment lai
-        value.now = Math.random() * 20 + 20;
+        // value.now = Math.random() * 20 + 20;
 
         if (!value[gioHienTai]) {
             Object.assign(value, {
