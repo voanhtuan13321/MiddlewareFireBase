@@ -1,7 +1,9 @@
+'use strict';
+
+import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getDatabase, set, get, update, remove, ref, child }
     from "https://www.gstatic.com/firebasejs/9.14.0/firebase-database.js";
 
-import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 // TODO: Add SDKs for Firebase products that you want to use
 // https://firebase.google.com/docs/web/setup#available-libraries
 
@@ -55,9 +57,8 @@ const insertData = (path, data) => {
 };
 
 // get data from firebase
-const selectData = (path, gio, phut, callBack) => {
+const selectData = (path, gio, callBack) => {
     const dbref = ref(db);
-
     get(child(dbref, path))
         .then((snapshot) => {
             if (snapshot.exists()) {
@@ -74,20 +75,20 @@ const selectData = (path, gio, phut, callBack) => {
         });
 };
 
-const insertDefaultData = (path) => {
+const insertDefaultData = path => {
     const data = { [phut]: 0 };
     insertData(path, data);
 }
 
 // delete data to firebase
-// const deleteData = (data) => {
+// const deleteData = function (data) {
 //     remove(ref(db, "people/tuan"))
 //         .then(() => console.log("sussefully"))
 //         .catch((error) => console.error("faild:", error));
 // };
 
 // update data to firebase
-// const updateData = () => {
+// const updateData = function () {
 //     update(ref(db, "people/tuan"), {
 //         name: data,
 //     })
@@ -117,11 +118,11 @@ const renderTable = (elementContent, object, label, color) => {
             </tr>
     `;
 
-    listGios.forEach((gio) => {
+    listGios.forEach(gio => {
         let listPhuts = Object.keys(object[gio]);
         let now = new Date();
 
-        listPhuts.forEach((phut) => {
+        listPhuts.forEach(phut => {
             htmls += `
                 <tr ${
                     now.getHours() == gio &&
@@ -143,7 +144,7 @@ const renderTable = (elementContent, object, label, color) => {
 
 const selectAndInsertToFirebase = (paths, gioHienTai, phutHienTai, check, element, lable, color) => {
     // du lieu nhan lai la mot object
-    selectData(paths, gioHienTai, phutHienTai, (value) => {
+    selectData(paths, gioHienTai, (value) => {
         // gan tam thoi gia tri cho now
         // doi khi nap co du lieu ben cam bien thi comment lai
         value.now = Math.random() * 20 + 20;
