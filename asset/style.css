@@ -1,0 +1,48 @@
+body {
+    background-color: #e3e0bc;
+}
+
+.table-wrapper {
+    position: relative;
+}
+
+.table-scroll {
+    max-height: 980px;
+    overflow-y: auto;
+}
+
+.table-wrapper table thead th {
+    position: absolute;
+    width: 84.5%;
+    top: -45px;
+}
+
+.gio {
+    padding-right: 0 !important;
+}
+
+.value {
+    padding-left: 0!important;
+}
+
+.text-red {
+    color: red;
+}
+
+@media only screen and (max-width: 1200px) {
+    .table-wrapper table thead th {
+        width: 87.5%;
+    }
+}
+
+@media only screen and (max-width: 768px) {
+    .table-wrapper table thead th {
+        width: 89%;
+    }
+}
+
+@media only screen and (max-width: 490px) {
+    .table-wrapper table thead th {
+        width: 87%;
+    }
+}
