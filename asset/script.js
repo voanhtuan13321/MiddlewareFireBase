@@ -158,7 +158,15 @@ const selectAndInsertToFirebase = (paths, gioHienTai, phutHienTai, check, elemen
 
         // cap nhat gia thi theo phutHienTai tu gia tri cua key now
         // value.now = value.now.toFixed(2);
-        value.now = value.now
+        let now = value.now;
+
+        now = now > 1000 ? now / 100 : now;
+        now = now > 100 ? now / 10 : now;
+        try {
+            value.now = now.toFixed(2);
+        } catch (e) {
+            value.now = now;
+        }
         if (check && phutHienTai > 0) {
             value[gioHienTai][phutHienTai - 1] = value.now;
         }
