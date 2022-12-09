@@ -1,5 +1,5 @@
 'use strict';
-import { insertData, selectData } from './ModuleHandleToFirebase.js';
+import { insertData, selectData } from './moduleHandleToFirebase.js';
 
 // create url to connect to Firebase
 const paths = {
