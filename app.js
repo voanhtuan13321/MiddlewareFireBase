@@ -24,46 +24,50 @@ console.log('******************************');
 
 let phutQK = new Date().getMinutes();
 
-setInterval(() => {
+setInterval(function () {
     const today = new Date();
     const gioHienTai = today.getHours();
     const phutHienTai = today.getMinutes();
-    const isPhutMoi = phutQK === phutHienTai;
+
+    // bien nay dung de kiem tra phut qua hien tai co chuyen qua phut moi khong
+    let isPhutMoi = (phutQK !== phutHienTai);
     
-    if (!isPhutMoi) {
+    // neu co, thi cho no bang nhau de tiep tuc kiem tra o lan lap tiep theo
+    if (isPhutMoi) {
         phutQK = phutHienTai;
         console.warn('\n=============== Reading firebase ... ===============');
     }
 
-    selectAndInsertToFirebase(paths.temp, gioHienTai, phutHienTai, !isPhutMoi);
-    selectAndInsertToFirebase(paths.hum, gioHienTai, phutHienTai, !isPhutMoi);
-    selectAndInsertToFirebase(paths.ssCO2, gioHienTai, phutHienTai, !isPhutMoi);
-    selectAndInsertToFirebase(paths.dustDensity, gioHienTai, phutHienTai, !isPhutMoi);
-    selectAndInsertToFirebase(paths.votage, gioHienTai, phutHienTai, !isPhutMoi);
-    selectAndInsertToFirebase(paths.current, gioHienTai, phutHienTai, !isPhutMoi);
-    selectAndInsertToFirebase(paths.power, gioHienTai, phutHienTai, !isPhutMoi);
-    selectAndInsertToFirebase(paths.water, gioHienTai, phutHienTai, !isPhutMoi);
-}, 500);
+    selectAndInsertToFirebase(paths.temp, gioHienTai, phutHienTai, isPhutMoi);
+    selectAndInsertToFirebase(paths.hum, gioHienTai, phutHienTai, isPhutMoi);
+    selectAndInsertToFirebase(paths.ssCO2, gioHienTai, phutHienTai, isPhutMoi);
+    selectAndInsertToFirebase(paths.dustDensity, gioHienTai, phutHienTai, isPhutMoi);
+    selectAndInsertToFirebase(paths.votage, gioHienTai, phutHienTai, isPhutMoi);
+    selectAndInsertToFirebase(paths.current, gioHienTai, phutHienTai, isPhutMoi);
+    selectAndInsertToFirebase(paths.power, gioHienTai, phutHienTai, isPhutMoi);
+    selectAndInsertToFirebase(paths.water, gioHienTai, phutHienTai, isPhutMoi);
+}, 1000);
 
 function selectAndInsertToFirebase(paths, gioHienTai, phutHienTai, isPhutMoi) {
     // du lieu nhan lai la mot object
-    selectData(paths, gioHienTai, (value) => {
+    selectData(paths, gioHienTai, function (value) {
+
         // doi khi nap co du lieu ben cam bien thi comment lai
         value.now = Math.random() * 20 + 20;
 
         // truong hop tao gio moi tren firebase
         (!value[gioHienTai]) && Object.assign(value, { [gioHienTai]: {} });
-        
+
+        let now = value.now;
         if (paths === 'temp') {
-            let now = value.now;
             (now > 1000) && (now = now / 100);
             (now > 100) && (now = now / 10);
-            
-            try {
-                value.now = now.toFixed(2);
-            } catch (e) {
-                value.now = now;
-            }
+        }
+
+        try {
+            value.now = now.toFixed(2);
+        } catch (e) {
+            value.now = now;
         }
 
         // kiem tra, neu qua phut moi thi cap nhat lai phut

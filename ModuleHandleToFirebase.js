@@ -15,12 +15,14 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
+initializeApp(firebaseConfig);
 const db = getDatabase();
 
 // insert data to firebase
 export function insertData(path, data) {
-    set(ref(db, path), data).then(() => {}).catch((error) => console.error('faild:', error));
+    set(ref(db, path), data)
+        .then(() => {})
+        .catch((error) => console.error('faild:', error));
 };
 
 // get data from firebase
@@ -43,6 +45,7 @@ export function selectData(path, gio, callBack) {
 };
 
 function insertDefaultData(path) {
+    const phut = new Date().getMinutes();
     const data = { [phut]: 0 };
     insertData(path, data);
 }
