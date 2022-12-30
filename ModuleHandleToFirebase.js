@@ -28,6 +28,7 @@ export function insertData(path, data) {
 // get data from firebase
 export function selectData(path, gio, callBack) {
     const dbref = ref(db);
+    
     get(child(dbref, path))
         .then(snapshot => {
             if (snapshot.exists()) {

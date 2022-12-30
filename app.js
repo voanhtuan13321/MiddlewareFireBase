@@ -25,6 +25,7 @@ console.log('******************************');
 let phutQK = new Date().getMinutes();
 
 setInterval(function () {
+
     const today = new Date();
     const gioHienTai = today.getHours();
     const phutHienTai = today.getMinutes();
@@ -49,16 +50,19 @@ setInterval(function () {
 }, 1000);
 
 function selectAndInsertToFirebase(paths, gioHienTai, phutHienTai, isPhutMoi) {
-    // du lieu nhan lai la mot object
-    selectData(paths, gioHienTai, function (value) {
-
+    // callback
+    function callBack(value) {
         // doi khi nap co du lieu ben cam bien thi comment lai
         value.now = Math.random() * 20 + 20;
 
         // truong hop tao gio moi tren firebase
-        (!value[gioHienTai]) && Object.assign(value, { [gioHienTai]: {} });
+        if (!value[gioHienTai]) {
+            const ob = { [gioHienTai]: {} };
+            Object.assign(value, ob);
+        }
 
         let now = value.now;
+        
         if (paths === 'temp') {
             (now > 1000) && (now = now / 100);
             (now > 100) && (now = now / 10);
@@ -83,5 +87,8 @@ function selectAndInsertToFirebase(paths, gioHienTai, phutHienTai, isPhutMoi) {
         }
 
         insertData(paths, value);
-    });
+    }
+
+    // du lieu nhan lai la mot object
+    selectData(paths, gioHienTai, callBack);
 };
