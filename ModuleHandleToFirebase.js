@@ -1,4 +1,4 @@
-'use strict'
+'use strict';
 import { getDatabase, set, get, update, remove, ref, child } from 'firebase/database';
 import { initializeApp } from 'firebase/app';
 
@@ -23,32 +23,20 @@ export function insertData(path, data) {
     set(ref(db, path), data)
         .then(() => {})
         .catch((error) => console.error('faild:', error));
-};
+}
 
 // get data from firebase
-export function selectData(path, gio, callBack) {
+export async function selectData(path) {
     const dbref = ref(db);
-    
-    get(child(dbref, path))
-        .then(snapshot => {
-            if (snapshot.exists()) {
-                // truong hop ton tai du lieu theo path, thi goi callBack truyen du lieu vao xu ly tiep
-                callBack(snapshot.val());
-            } else {
-                insertDefaultData(path + '/' + gio);
-            }
-        })
-        .catch(error => {
-            // truong hop loi, khong khong ton tai path trong firebase, thi tao path moi
-            console.error('faild - when select data from firebase: ', error);
-            insertDefaultData(path + '/' + gio);
-        });
-};
-
-function insertDefaultData(path) {
-    const phut = new Date().getMinutes();
-    const data = { [phut]: 0 };
-    insertData(path, data);
+    try {
+        // truong hop ton tai du lieu theo path, thi goi callBack truyen du lieu vao xu ly tiep
+        let snapshot = await get(child(dbref, path));
+        let value = await snapshot.val();
+        return value;
+    } catch (error) {
+        // truong hop loi, khong khong ton tai path trong firebase, thi tao path moi
+        return null;
+    }
 }
 
 // delete data to firebase
@@ -66,3 +54,29 @@ function insertDefaultData(path) {
 //         .then(() => console.log('sussefully'))
 //         .catch((error) => console.error('faild:', error));
 // };
+
+export function handle(value, gioHienTai, path) {
+    //doi khi nap co du lieu ben cam bien thi comment lai
+    value.now = Math.random() * 20 + 20;
+
+    // truong hop tao gio moi tren firebase
+    if (!value[gioHienTai]) {
+        const ob = {[gioHienTai]: {}};
+        Object.assign(value, ob);
+    }
+
+    let now = value.now;
+
+    if (path === "temp") {
+        now > 1000 && (now = now / 100);
+        now > 100 && (now = now / 10);
+    }
+
+    try {
+        value.now = now.toFixed(2);
+    } catch (e) {
+        value.now = now;
+    }
+
+    return value;
+}
